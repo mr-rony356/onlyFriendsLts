@@ -19,9 +19,9 @@ export async function getServerSideProps({ req, locale }) {
   const user = (await api.checkAuth(auth.token)) || null;
   // Fetch all props server side
   const lang = locale === "de" ? "de" : "en";
-  const attributes = await api.fetchAttributes(lang) || null;
-  const ads = await api.fetchAds(0) || null;
-  const premiumAds = await api.fetchPremiumAds(0) || null;
+  const attributes = (await api.fetchAttributes(lang)) || null;
+  const ads = (await api.fetchAds(0)) || null;
+  const premiumAds = (await api.fetchPremiumAds(0)) || null;
   // Return all props to the page
   return {
     props: {
@@ -31,7 +31,7 @@ export async function getServerSideProps({ req, locale }) {
       ])),
       user,
       attributes,
-      initialAds: ads ,
+      initialAds: ads,
       premiumAds,
     },
   };
