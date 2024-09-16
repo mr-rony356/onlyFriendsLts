@@ -10,6 +10,8 @@ const FilterForm = (props) => {
   const router = useRouter();
 
   const updateFilters = (property, value) => {
+    alert("updateFilters");
+
     // Update the state of the filters
     setFilters({
       ...filters,
@@ -19,6 +21,7 @@ const FilterForm = (props) => {
 
   const doFilter = (event) => {
     event.preventDefault();
+    alert("doFilter");
 
     // Construct the filtered URL
     let params = "";

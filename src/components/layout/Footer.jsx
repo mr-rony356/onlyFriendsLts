@@ -25,7 +25,7 @@ const Footer = () => {
         <Link href={"/privacy"} className="footer__link">
           Datenschutzerklärung
         </Link>
-        <Link href={"/agb"} className="footer__link">
+        <Link href={"/agbPage"} className="footer__link">
           AGB
         </Link>
       </div>
