@@ -3,7 +3,7 @@ import Document, { Html, Head, Main, NextScript } from "next/document";
 class MyDocument extends Document {
   render() {
     return (
-      <Html lang="en">
+      <Html lang="de">
         <Head>
           <link rel="icon" href="/favicon.png" />
           <meta name="apple-mobile-web-app-capable" content="yes" />
