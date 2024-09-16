@@ -142,7 +142,7 @@ function HomePage({ user, attributes, initialAds, premiumAds }) {
                     </button>
                   ))}
               <Image
-                src="https://onlyfriend.ch/assets/filter.png"
+                src="/assets/filter.png"
                 width={500}
                 height={500}
                 alt="filter"
