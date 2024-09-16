@@ -53,6 +53,7 @@ function HomePage({ user, attributes, initialAds, premiumAds }) {
     verified: false,
   });
   const [activeType, setActiveType] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
 
   // Fetch ads based on activeType when it changes
   const fetchAds = async (tab) => {
@@ -65,11 +66,12 @@ function HomePage({ user, attributes, initialAds, premiumAds }) {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsFilterVisible(!window.matchMedia("(max-width: 820px)").matches);
+      const mobile = window.matchMedia("(max-width: 820px)").matches;
+      setIsMobile(mobile);
+      setIsFilterVisible(!mobile);
     };
 
     handleResize();
-
     window.addEventListener("resize", handleResize);
 
     return () => {
@@ -116,12 +118,15 @@ function HomePage({ user, attributes, initialAds, premiumAds }) {
           {t("home__title", { region: "Schweiz" })}
         </h1>
         <div className="home__content">
-          <div className="home__left">
-            {isFilterVisible && (
+          <div
+            className={`home__left ${isMobile && isFilterVisible ? "mobile-filter-visible" : ""}`}
+          >
+            {(isFilterVisible || !isMobile) && (
               <FilterForm
                 filters={filters}
                 setFilters={setFilters}
                 attributes={attributes}
+                onClose={isMobile ? toggleFilter : undefined}
               />
             )}
           </div>
