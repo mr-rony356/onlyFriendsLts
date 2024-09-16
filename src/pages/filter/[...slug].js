@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import FilterForm from "@components/forms/FilterForm";
 import AdList from "@components/home/AdList";
 import ApiController from "@utils/API";
-import { generateMetaDesc2, generateMetaTitle2 } from "@utils/MetaGenerators";
+import { generateMetaDesc, generateMetaTitle } from "@utils/MetaGenerators";
 import Cookies from "js-cookie";
 import Head from "next/head";
 import Image from "next/image";
@@ -112,51 +112,39 @@ function HomePage({
     setIsFilterVisible(!isFilterVisible);
   };
 
-  const offers =
+  let offers =
     initialFilters.offers.map(
       (o) => attributes.find((a) => a.name === "offers")?.values[o],
     ) ?? [];
-  // if (!offers.length)
-  //   offers = attributes.find((a) => a.name === "offers")?.values;
+  if (!offers.length)
+    offers = attributes.find((a) => a.name === "offers")?.values;
 
-  const locations =
+  let locations =
     initialFilters.regions.map(
       (r) => attributes.find((a) => a.name === "regions")?.values[r],
     ) ?? [];
-
-  const tags =
-    initialFilters.tags.map(
-      (o) => attributes.find((a) => a.name === "tags")?.values[o],
-    ) ?? [];
+  if (!locations.length)
+    locations = attributes.find((a) => a.name === "regions")?.values;
 
   return (
     <>
       <Head>
         <title>
-          {generateMetaTitle2({
-            locations: locations?.join(", "),
-            tags: tags?.join(", "),
-            offers: offers.join(", "),
-          })}
+          {generateMetaTitle(offers.join(", "), locations.join(", "))}
         </title>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#000000" />
         <meta
           name="description"
-          content={generateMetaDesc2({
-            locations: locations.join(", "),
-            tags: tags,
-            offers: offers.join(", "),
-          })}
+          content="Entdecken Sie auf unserer Webseite erotische Anzeigen für Sexkontake und Onlyfans Accounts in der Schweiz. Treffen Sie heiße Girls in Ihrer Nähe und erleben Sie prickelnde Abenteuer. Ohne Anmeldung können Sie direkt mit den Girls in Kontakt kommen."
         />
         <meta
           name="keywords"
-          content={generateMetaDesc2({
-            locations: locations.join(", "),
-            tags: tags,
-            offers: offers.join(", "),
-          })}
+          content={
+            generateMetaDesc(offers.join(", "), locations.join(", ")) +
+            ", Onlyfans, Onlyfriends,"
+          }
         />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="mobile-web-app-capable" content="yes" />
@@ -164,36 +152,13 @@ function HomePage({
 
       <div className="page page--home">
         <h1 className="home__title">
-          {locations.length < 1 && !offers.length && !tags.length
-            ? t("home__title", {
-                region: initialFilters.regions
-                  .map(
-                    (r) =>
-                      attributes.find((a) => a.name === "regions")?.values[r],
-                  )
-                  .join(", "),
-              })
-            : null}
-
-          {!tags.length && locations.length > 0
-            ? `Sex und Erotik Inserate in 
-          ${locations.join(" , ")} `
-            : null}
-          {tags.length && locations.length < 1
-            ? `${tags[0]} - ganze Schweiz`
-            : null}
-          {tags.length && locations.length > 0 && offers.length < 1
-            ? `${tags[0]} in ${locations.join(" , ")}`
-            : null}
-          {tags.length < 1 && locations.length < 1 && offers.length > 0
-            ? ` ${offers[0]} - ganze Schweiz`
-            : null}
-          {tags.length < 1 && locations.length > 0 && offers.length > 0
-            ? ` ${offers[0]} in ${locations.join(" , ")}`
-            : null}
-          {tags.length > 0 && locations.length > 0 && offers.length > 0
-            ? ` ${tags[0]} / ${offers[0]} in ${locations.join(" , ")}`
-            : null}
+          {t("home__title", {
+            region: initialFilters.regions
+              .map(
+                (r) => attributes.find((a) => a.name === "regions")?.values[r],
+              )
+              .join(", "),
+          })}
         </h1>
         <div className="home__content">
           <div className="home__left">
@@ -222,10 +187,10 @@ function HomePage({
                       {value.name} {t("home__ad")}
                     </button>
                   ))}
-              <Image
-                src={"/assets/filter.svg"}
-                width={500}
-                height={500}
+              <img
+                src={"/assets/filter.png"}
+                width={100}
+                height={100}
                 alt="filter"
                 className="filter"
                 onClick={toggleFilter}
