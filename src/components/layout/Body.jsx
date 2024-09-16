@@ -11,7 +11,7 @@ import Messages from "@pages/admin/messages/index.js";
 import HomePage from "@pages/admin/pay/sucess";
 import Settings from "@pages/admin/settings";
 import Verifications from "@pages/admin/verifications";
-import AgbPage from "@pages/AGB";
+import AgbPage from "@pages/agbPage";
 import BlogCreate from "@pages/blog";
 import BlogDetail from "@pages/blog/[id]/[slug]";
 import BlogList from "@pages/blogs";

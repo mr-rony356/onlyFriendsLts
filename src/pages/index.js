@@ -85,7 +85,7 @@ function HomePage({ user, attributes, initialAds, premiumAds }) {
 
   const toggleFilter = () => {
     setIsFilterVisible(!isFilterVisible);
-    console.log("toggleFilter");
+    alert("toggleFilter");
   };
 
   return (
