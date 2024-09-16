@@ -84,7 +84,7 @@ const Ad = ({ user, attributes, ad, isAdmin }) => {
         <div style={{ position: "relative", width: "100%" }}>
           {ad.images && ad.images.length > 0 && (
             <Image
-              src={API_ADDRESS + ad.images[ad.frontImage]}
+              src={ad.images[ad.frontImage]}
               width={500}
               height={500}
               alt="test"

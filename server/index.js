@@ -13,6 +13,8 @@ const next = require("next");
 const database = require("./utils/db/database");
 const sendEmail = require("./utils/email/sendEmail");
 const payrexx = require("./utils/payrexx/payrexx");
+const cloudinary = require("cloudinary").v2;
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
 
 // Access the environment file
 // Switch between .env.development and .env.production state
@@ -50,7 +52,6 @@ server
 
     // Allow CORS
     app.use(
-      
       cors({
         origin: [
           process.env.FRONTEND_URL,
@@ -61,10 +62,9 @@ server
         credentials: true,
       }),
     );
-    if (process.env.NODE_ENV === 'development') {
+    if (process.env.NODE_ENV === "development") {
       app.use(cors());
     }
-    
 
     // Use the database middleware
     app.use(database);
@@ -97,38 +97,35 @@ server
     /**
      * Specifies the storage location of all files
      */
-    const storage = multer.diskStorage({
-      destination: "./server/public/files",
-      filename: (req, file, cb) => {
-        cb(
-          null,
-          file.fieldname +
-            "-" +
-            Date.now() +
-            "-" +
-            Math.round(Math.random() * 1e9) +
-            path.extname(file.originalname),
-        );
+
+    // Configure Cloudinary
+    cloudinary.config({
+      cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+      api_key: process.env.CLOUDINARY_API_KEY,
+      api_secret: process.env.CLOUDINARY_API_SECRET,
+    });
+
+    // Configure Cloudinary storage
+    const storage = new CloudinaryStorage({
+      cloudinary: cloudinary,
+      params: {
+        folder: "onlyfriends", // You can change this to your preferred folder name
+        allowed_formats: ["jpg", "jpeg", "png", "gif", "mp4", "mov"],
+        resource_type: "auto",
       },
     });
 
-    /**
-     * Fetches all files given in the request header
-     */
+    // Configure multer
     const upload = multer({
-      storage,
+      storage: storage,
       limits: {
         fileSize: 100 * 1024 * 1024, // 100MB
       },
-      fileFilter(req, file, cb) {
-        if (
-          !file.originalname.match(
-            /\.(png|PNG|jpg|JPG|jpeg|JPEG|gif|GIF|mp4|MP4|mpeg-4|MPEG-4|mov|MOV)$/,
-          )
-        ) {
+      fileFilter: (req, file, cb) => {
+        if (!file.originalname.match(/\.(png|jpg|jpeg|gif|mp4|mov)$/i)) {
           return cb(new Error("Invalid file format"));
         }
-        cb(undefined, true);
+        cb(null, true);
       },
     });
 
@@ -954,6 +951,7 @@ server
           const cRegions =
             ad.regions.length > 0 ? (ad.regions.length - 1) * 10 : 0;
           const cTotal = cDuration + cTags + cRegions;
+
           // Check the credit score of the user
           if (user.credits < cTotal) {
             return res.status(400).json({ err: "The credit score is too low" });
@@ -966,39 +964,45 @@ server
           ad.user = user._id;
           ad.startDate = Date.now();
           ad.endDate = Date.now() + duration.duration * 24 * 60 * 60 * 1000;
-          // Properly reference the files
+
+          // Store Cloudinary URLs
           if (req.files && req.files.image) {
-            req.files.image.map((image, i) => (ad.images[i] = image.path));
+            ad.images = req.files.image.map((image) => image.path);
           }
-          if (req.files && req.files.video) ad.video = req.files.video[0].path;
+          if (req.files && req.files.video) {
+            ad.video = req.files.video[0].path;
+          }
           if (req.files && req.files.verificationImage) {
             delete ad.endDate;
             ad.verificationImage = req.files.verificationImage[0].path;
           }
 
           // Insert the ad to the database
-          await req.db.collection("ads").insertOne(ad, async (err, item) => {
-            if (err) return res.status(500).json({ err });
-          });
+          const insertResult = await req.db.collection("ads").insertOne(ad);
+
+          if (!insertResult.acknowledged) {
+            throw new Error("Failed to insert ad into database");
+          }
 
           // Update the credits of the user
-          await req.db
+          const updateResult = await req.db
             .collection("users")
             .updateOne(
               { name: user.name },
               { $set: { credits: user.credits - cTotal } },
-              (err, item) => {
-                if (err) return res.status(500).json({ err });
-              },
             );
+
+          if (!updateResult.acknowledged) {
+            throw new Error("Failed to update user credits");
+          }
 
           return res.status(200).json({ ok: true, usedCredits: cTotal });
         } catch (err) {
-          return res.status(500).json({ err });
+          console.error(err);
+          return res.status(500).json({ err: err.message });
         }
       },
     );
-
     /**
      * Do payment via stripe
      */

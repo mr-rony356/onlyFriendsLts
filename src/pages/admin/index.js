@@ -10,7 +10,7 @@ export async function getServerSideProps({ req, locale }) {
   const api = new ApiController();
   // Authenticate the user
   const auth = req.cookies.Auth ? JSON.parse(req.cookies.Auth) : "";
-  const user = await api.checkAuth(auth.token);
+  const user = (await api.checkAuth(auth.token)) || null;
   // Redirect the user if he is not authenticated
   if (!user || user.err) {
     return {

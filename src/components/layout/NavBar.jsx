@@ -93,7 +93,7 @@ const NavBar = ({ user }) => {
               <Image
                 src={
                   user && !user.err && user.image
-                    ? API_ADDRESS + user.image
+                    ? user.image
                     : "/assets/user-icon.png"
                 }
                 width={25}
@@ -151,7 +151,7 @@ const NavBar = ({ user }) => {
                 <Image
                   src={
                     user && !user.err && user.image
-                      ? API_ADDRESS + user.image
+                      ? user.image
                       : "/assets/user-icon.png"
                   }
                   width={25}

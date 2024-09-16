@@ -101,7 +101,7 @@ const Settings = ({ initialUser }) => {
                   <Image
                     src={
                       typeof user.image === "string"
-                        ? API_ADDRESS + user.image
+                        ? user.image
                         : URL.createObjectURL(user.image)
                     }
                     width={500}

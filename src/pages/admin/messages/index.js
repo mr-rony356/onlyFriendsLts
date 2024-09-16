@@ -99,12 +99,10 @@ const Messages = ({ user, messages, groupedMessages }) => {
                               groupedMessages[group][0].from[0].name ===
                               user.name
                                 ? groupedMessages[group][0].to[0].image
-                                  ? API_ADDRESS +
-                                    groupedMessages[group][0].to[0].image
+                                  ? groupedMessages[group][0].to[0].image
                                   : userIcon
                                 : groupedMessages[group][0].from[0].image
-                                  ? API_ADDRESS +
-                                    groupedMessages[group][0].from[0].image
+                                  ? groupedMessages[group][0].from[0].image
                                   : userIcon
                             }
                             width={500}

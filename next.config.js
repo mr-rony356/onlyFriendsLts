@@ -16,6 +16,12 @@ module.exports = {
         port: "",
         pathname: "/server/public/files/**",
       },
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+        port: "",
+        pathname: "/dpgvsl8ap/image/upload/**",
+      },
     ],
   },
 };

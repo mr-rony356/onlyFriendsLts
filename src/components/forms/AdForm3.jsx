@@ -104,7 +104,7 @@ const AdForm3 = (props) => {
                   name={"iv-1-" + index}
                   src={
                     typeof image === "string"
-                      ? `${API_ADDRESS}${image}`
+                      ? `${image}`
                       : URL.createObjectURL(image)
                   }
                   width={500}
@@ -155,7 +155,7 @@ const AdForm3 = (props) => {
                   <source
                     src={
                       typeof ad.video === "string"
-                        ? `${API_ADDRESS}${ad.video}`
+                        ? `${ad.video}`
                         : URL.createObjectURL(ad.video)
                     }
                     type={ad.video.type}
@@ -215,7 +215,7 @@ const AdForm3 = (props) => {
                   name={"iv-3-1"}
                   src={
                     typeof ad.verificationImage === "string"
-                      ? `${API_ADDRESS}${ad.verificationImage}`
+                      ? `${ad.verificationImage}`
                       : URL.createObjectURL(ad.verificationImage)
                   }
                   width={500}

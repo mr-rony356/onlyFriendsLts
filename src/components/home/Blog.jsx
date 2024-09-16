@@ -45,7 +45,7 @@ const Blog = ({ blog, user, deleteHandler }) => {
       <div style={{ position: "relative", width: "100%" }}>
         {blog.images && blog.images.length > 0 && (
           <Image
-            src={API_ADDRESS + blog.images[0]}
+            src={blog.images[0]}
             width={500}
             height={500}
             alt="Blog"

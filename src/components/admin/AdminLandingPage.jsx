@@ -62,9 +62,7 @@ const AdminLandingPage = ({ user, attributes, ad, message }) => {
                   <div className="messages__flex">
                     <Image
                       src={
-                        message.from[0].image
-                          ? API_ADDRESS + message.from[0].image
-                          : userIcon
+                        message.from[0].image ? message.from[0].image : userIcon
                       }
                       width={500}
                       height={500}

@@ -76,7 +76,7 @@ const Carousel = ({
               autoPlay
               muted
             >
-              <source src={API_ADDRESS + ad.video} type="video/mp4" />
+              <source src={ad.video} type="video/mp4" />
             </video>
           </div>
         )}
@@ -84,7 +84,7 @@ const Carousel = ({
           ad.images.map((image, i) => (
             <div key={i}>
               <Image
-                src={API_ADDRESS + image}
+                src={image}
                 width={500}
                 height={500}
                 alt={`Bild ${i}`}
@@ -105,8 +105,8 @@ const Carousel = ({
       <FsLightbox
         toggler={toggler}
         sources={[
-          ad.video ? API_ADDRESS + ad.video : null,
-          ...ad.images.map((image) => API_ADDRESS + image),
+          ad.video ? ad.video : null,
+          ...ad.images.map((image) => image),
         ].filter(Boolean)}
         slide={currentSlide + 1}
       />

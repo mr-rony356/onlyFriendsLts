@@ -25,7 +25,7 @@ const Verification = ({ id, ad, handleDelete, handleVerify }) => {
       <div className="verification__content">
         {ad.verificationImage && (
           <Image
-            src={API_ADDRESS + ad.verificationImage}
+            src={ad.verificationImage}
             width={500}
             height={500}
             alt={"verificationImage"}
@@ -37,7 +37,7 @@ const Verification = ({ id, ad, handleDelete, handleVerify }) => {
           <video
             id="iv-10-0"
             name="iv-10-0"
-            src={API_ADDRESS + ad.video}
+            src={ad.video}
             alt={ad.video.name}
             className="image"
           />
@@ -47,7 +47,7 @@ const Verification = ({ id, ad, handleDelete, handleVerify }) => {
           ad.images.map((image, i) => (
             <Image
               key={i}
-              src={API_ADDRESS + image}
+              src={image}
               width={500}
               height={500}
               alt={"i " + i}

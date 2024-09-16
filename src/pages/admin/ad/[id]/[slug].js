@@ -206,7 +206,7 @@ const AdDetail = ({ user, attributes, ad, initialIsFavorite }) => {
                     setToggler(!toggler);
                   }}
                 >
-                  <source src={API_ADDRESS + ad.video} />
+                  <source src={ad.video} />
                 </video>
               )}
               {ad.images &&
@@ -214,7 +214,7 @@ const AdDetail = ({ user, attributes, ad, initialIsFavorite }) => {
                 ad.images.map((image, i) => (
                   <Image
                     key={i}
-                    src={API_ADDRESS + image}
+                    src={image}
                     width={500}
                     height={500}
                     alt={"image-" + i}
@@ -244,7 +244,7 @@ const AdDetail = ({ user, attributes, ad, initialIsFavorite }) => {
               sources={(ad && ad.video
                 ? [
                     <video controls key={-1}>
-                      <source src={API_ADDRESS + ad.video} />
+                      <source src={ad.video} />
                     </video>,
                   ]
                 : []
@@ -254,7 +254,7 @@ const AdDetail = ({ user, attributes, ad, initialIsFavorite }) => {
                   ad.images.map((image, i) => (
                     <Image
                       key={i}
-                      src={API_ADDRESS + image}
+                      src={image}
                       width={500}
                       height={500}
                       alt={"image-" + i}

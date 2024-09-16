@@ -100,11 +100,7 @@ const BlogDetail = ({ blog, user }) => {
         ) : (
           <>
             <Image
-              src={
-                blog.images &&
-                blog.images.length > 0 &&
-                API_ADDRESS + blog.images[0]
-              }
+              src={blog.images && blog.images.length > 0 && blog.images[0]}
               width={500}
               height={500}
               alt={blog.title}
