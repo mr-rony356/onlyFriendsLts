@@ -2287,22 +2287,3 @@ a:-webkit-any-link {
     font-size: large;
   }
 }
-
-@media (max-width: 820px) {
-  .home__left {
-    display: none;
-  }
-
-  .home__left.mobile-filter-visible {
-    display: block;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 100%;
-    background: white;
-    z-index: 1000;
-    overflow-y: auto;
-    height: 100vh;
-  }
-}

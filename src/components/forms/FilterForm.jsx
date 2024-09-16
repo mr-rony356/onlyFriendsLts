@@ -4,8 +4,9 @@ import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
 import Select from "react-select";
 
-const FilterForm = ({ filters, setFilters, attributes, onClose }) => {
+const FilterForm = (props) => {
   const { t } = useTranslation("common");
+  const { filters, setFilters, attributes } = props;
   const router = useRouter();
 
   const updateFilters = (property, value) => {
@@ -68,11 +69,6 @@ const FilterForm = ({ filters, setFilters, attributes, onClose }) => {
 
   return (
     <form className="form form--filters" onSubmit={doFilter}>
-      {onClose && (
-        <button type="button" className="close-button" onClick={onClose}>
-          Close
-        </button>
-      )}{" "}
       <Select
         id="dd-1-1"
         className="dd-1-1"
@@ -188,6 +184,7 @@ const FilterForm = ({ filters, setFilters, attributes, onClose }) => {
           updateFilters("verified", !!event.target.checked);
         }}
       />
+
       <button type="submit" className="button filter--button">
         {t("filterForm__filterButton")}
       </button>

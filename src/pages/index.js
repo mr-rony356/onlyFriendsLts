@@ -11,7 +11,6 @@ import { router } from "next/router";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import useScrollRestoration from "src/hooks/useScrollRestoration";
-
 export async function getServerSideProps({ req, locale }) {
   // Initialize the API helper class
   const api = new ApiController();
@@ -53,7 +52,6 @@ function HomePage({ user, attributes, initialAds, premiumAds }) {
     verified: false,
   });
   const [activeType, setActiveType] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
 
   // Fetch ads based on activeType when it changes
   const fetchAds = async (tab) => {
@@ -64,20 +62,19 @@ function HomePage({ user, attributes, initialAds, premiumAds }) {
     else setAds(res);
   };
 
-  useEffect(() => {
-    const handleResize = () => {
-      const mobile = window.matchMedia("(max-width: 820px)").matches;
-      setIsMobile(mobile);
-      setIsFilterVisible(!mobile);
-    };
+  // useEffect(() => {
+  //   const handleResize = () => {
+  //     setIsFilterVisible(!window.matchMedia("(max-width: 820px)").matches);
+  //   };
 
-    handleResize();
-    window.addEventListener("resize", handleResize);
+  //   handleResize();
 
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+  //   window.addEventListener("resize", handleResize);
+
+  //   return () => {
+  //     window.removeEventListener("resize", handleResize);
+  //   };
+  // }, []);
 
   useEffect(() => {
     if (!Cookies.get("cookiesPopupShown")) {
@@ -118,15 +115,12 @@ function HomePage({ user, attributes, initialAds, premiumAds }) {
           {t("home__title", { region: "Schweiz" })}
         </h1>
         <div className="home__content">
-          <div
-            className={`home__left ${isMobile && isFilterVisible ? "mobile-filter-visible" : ""}`}
-          >
-            {(isFilterVisible || !isMobile) && (
+          <div className="home__left">
+            {isFilterVisible && (
               <FilterForm
                 filters={filters}
                 setFilters={setFilters}
                 attributes={attributes}
-                onClose={isMobile ? toggleFilter : undefined}
               />
             )}
           </div>
@@ -148,7 +142,7 @@ function HomePage({ user, attributes, initialAds, premiumAds }) {
                     </button>
                   ))}
               <Image
-                src={"/assets/filter.png"}
+                src="/assets/filter.png"
                 width={500}
                 height={500}
                 alt="filter"
