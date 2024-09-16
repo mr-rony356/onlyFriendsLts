@@ -11,7 +11,6 @@ import Messages from "@pages/admin/messages/index.js";
 import HomePage from "@pages/admin/pay/sucess";
 import Settings from "@pages/admin/settings";
 import Verifications from "@pages/admin/verifications";
-import AGB from "@pages/AGB";
 import BlogCreate from "@pages/blog";
 import BlogDetail from "@pages/blog/[id]/[slug]";
 import BlogList from "@pages/blogs";
@@ -20,6 +19,7 @@ import LoginPage from "@pages/loginPage";
 import Support from "@pages/pageSupport";
 import Privacy from "@pages/privacy";
 import { Route, Routes } from "react-router-dom";
+import AgbPage from "@pages/AGB";
 
 const Body = (props) => {
   const { user, setUser } = props;
@@ -120,7 +120,7 @@ const Body = (props) => {
         </Route>
         <Route path="/blogs" element={<BlogList />} />
         <Route path="/pageSupport" element={<Support />} />
-        <Route path="/agb" element={<AGB />} />
+        <Route path="/agb" element={<AgbPage />} />
         <Route path="/imprint" element={<Imprint />} />
         <Route path="/privacy" element={<Privacy />} />
       </Routes>

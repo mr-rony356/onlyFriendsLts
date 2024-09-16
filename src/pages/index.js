@@ -62,19 +62,19 @@ function HomePage({ user, attributes, initialAds, premiumAds }) {
     else setAds(res);
   };
 
-  // useEffect(() => {
-  //   const handleResize = () => {
-  //     setIsFilterVisible(!window.matchMedia("(max-width: 820px)").matches);
-  //   };
+  useEffect(() => {
+    const handleResize = () => {
+      setIsFilterVisible(!window.matchMedia("(max-width: 820px)").matches);
+    };
+    console.log("run");
+    handleResize();
 
-  //   handleResize();
+    window.addEventListener("resize", handleResize);
 
-  //   window.addEventListener("resize", handleResize);
-
-  //   return () => {
-  //     window.removeEventListener("resize", handleResize);
-  //   };
-  // }, []);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     if (!Cookies.get("cookiesPopupShown")) {
@@ -85,6 +85,7 @@ function HomePage({ user, attributes, initialAds, premiumAds }) {
 
   const toggleFilter = () => {
     setIsFilterVisible(!isFilterVisible);
+    console.log("toggleFilter");
   };
 
   return (
