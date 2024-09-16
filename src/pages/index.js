@@ -63,12 +63,9 @@ function HomePage({ user, attributes, initialAds, premiumAds }) {
   };
 
   useEffect(() => {
-    alert("toggleFilterEffect");
-
     const handleResize = () => {
       setIsFilterVisible(!window.matchMedia("(max-width: 820px)").matches);
     };
-    console.log("run");
     handleResize();
 
     window.addEventListener("resize", handleResize);
@@ -87,7 +84,6 @@ function HomePage({ user, attributes, initialAds, premiumAds }) {
 
   const toggleFilter = () => {
     setIsFilterVisible(!isFilterVisible);
-    alert("toggleFilter");
   };
 
   return (

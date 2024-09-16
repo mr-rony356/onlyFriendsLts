@@ -2287,3 +2287,110 @@ a:-webkit-any-link {
     font-size: large;
   }
 }
+
+/* Mobile styles for FilterForm */
+
+/* General mobile styles */
+@media (max-width: 768px) {
+  .form--filters.mobile {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #fff;
+    z-index: 1000;
+    padding: 20px;
+    overflow-y: auto;
+  }
+
+  .form--filters.mobile > * {
+    margin-bottom: 15px;
+  }
+}
+
+/* Open filter button */
+.filter--open-button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.filter--open-button:hover {
+  background-color: #0056b3;
+}
+
+/* Filter button group */
+.filter--button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+/* Filter and cancel buttons */
+.filter--button,
+.filter--cancel-button {
+  flex: 1;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.filter--button {
+  background-color: #28a745;
+  color: #fff;
+  margin-right: 10px;
+}
+
+.filter--button:hover {
+  background-color: #218838;
+}
+
+.filter--cancel-button {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.filter--cancel-button:hover {
+  background-color: #c82333;
+}
+
+/* Style adjustments for Select components */
+.form--filters.mobile .react-select__control {
+  min-height: 40px;
+}
+
+.form--filters.mobile .react-select__placeholder {
+  font-size: 14px;
+}
+
+/* Style adjustments for Textfield */
+.form--filters.mobile input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+}
+
+/* Style adjustments for Slider */
+.form--filters.mobile .slider-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.form--filters.mobile .slider-label {
+  margin-left: 10px;
+  font-size: 14px;
+}
