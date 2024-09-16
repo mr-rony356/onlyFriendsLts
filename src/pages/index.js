@@ -11,8 +11,6 @@ import { router } from "next/router";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import useScrollRestoration from "src/hooks/useScrollRestoration";
-import Filter from "../../public/assets/filter.svg";
-
 export async function getServerSideProps({ req, locale }) {
   // Initialize the API helper class
   const api = new ApiController();
@@ -144,7 +142,7 @@ function HomePage({ user, attributes, initialAds, premiumAds }) {
                     </button>
                   ))}
               <Image
-                src={Filter}
+                src="https://onlyfriend.ch/assets/filter.png"
                 width={500}
                 height={500}
                 alt="filter"

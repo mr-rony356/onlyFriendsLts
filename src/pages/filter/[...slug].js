@@ -8,7 +8,6 @@ import Head from "next/head";
 import Image from "next/image";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import Filter from "../../public/assets/filter.svg";
 
 export async function getServerSideProps({ req, locale, params }) {
   // Initialize the API helper class
@@ -224,7 +223,7 @@ function HomePage({
                     </button>
                   ))}
               <Image
-                src={Filter}
+                src={"/assets/filter.svg"}
                 width={500}
                 height={500}
                 alt="filter"
