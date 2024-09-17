@@ -100,7 +100,7 @@ const BlogCreate = ({ editMode, blog }) => {
               {blog.images && blog.images.length > 0 ? (
                 <div className="image-container">
                   <Image
-                    src={blog.images[0]}
+                    src={API_ADDRESS + blog.images[0]}
                     width={500}
                     height={500}
                     alt={blog.title}
@@ -132,7 +132,7 @@ const BlogCreate = ({ editMode, blog }) => {
                     name={"iv-3-1"}
                     src={
                       typeof image === "string"
-                        ? `${image}`
+                        ? `${API_ADDRESS}${image}`
                         : URL.createObjectURL(image)
                     }
                     width={500}
